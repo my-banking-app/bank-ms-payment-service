@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  payment-service:
+    build: .
+    image: payment-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - API_KEY=${API_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "8085:8085"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:17.5-alpine
+    container_name: payment-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5436:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
