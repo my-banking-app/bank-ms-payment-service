@@ -99,9 +99,10 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private LocalDateTime resolveFirstExecution(CreatePaymentRequest req) {
-        return req.getFrequency() == PaymentFrequency.ONE_TIME
-                ? (req.getFirstExecution() != null ? req.getFirstExecution()
-                : LocalDateTime.now())
-                : req.getFirstExecution();
+        LocalDateTime firstExecution = req.getFirstExecution();
+        if (req.getFrequency() == PaymentFrequency.ONE_TIME) {
+            return (firstExecution != null) ? firstExecution : LocalDateTime.now();
+        }
+        return firstExecution;
     }
 }
