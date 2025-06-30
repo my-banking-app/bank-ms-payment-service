@@ -12,7 +12,7 @@ jobs:
     with:
       service-name: "Payment Service"
       docker-image-name: "payment-service"
-      service-port: "8083"
+      service-port: "8085"
       sonar-project-key: "my-banking-app_bank-ms-payment-service"
       java-version: "21"
       maven-command: "mvn clean verify"
