@@ -17,7 +17,7 @@ public class PaymentController {
 
     private final PaymentServiceImpl paymentService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<PaymentResponse> createPayment(
             @Valid @RequestBody CreatePaymentRequest request) {
         return ResponseEntity.ok(paymentService.createPayment(request));
@@ -28,7 +28,7 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPayment(id));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<PaymentResponse>> listPayments(
             @RequestParam(required = false) UUID accountId,
             @RequestParam(required = false) String status) {

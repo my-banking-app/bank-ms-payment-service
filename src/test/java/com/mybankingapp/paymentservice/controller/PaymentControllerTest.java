@@ -56,7 +56,7 @@ public class PaymentControllerTest {
 
         Mockito.when(paymentService.createPayment(any(CreatePaymentRequest.class))).thenReturn(response);
 
-        mockMvc.perform(post("/api/v1/payments")
+        mockMvc.perform(post("/api/v1/payments/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -88,7 +88,7 @@ public class PaymentControllerTest {
         Mockito.when(paymentService.listPayments(eq(accountId), eq("PENDING")))
                 .thenReturn(List.of(response));
 
-        mockMvc.perform(get("/api/v1/payments")
+        mockMvc.perform(get("/api/v1/payments/list")
                         .param("accountId", accountId.toString())
                         .param("status", "PENDING"))
                 .andExpect(status().isOk())
